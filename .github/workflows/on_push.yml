@@ -29,4 +29,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repository: bacsicayxanh-hcm/frappe_docker
           event-type: build-docker
-          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }}"}'
+          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }}", "frappe-version": "${GITHUB_SHA}"}'
