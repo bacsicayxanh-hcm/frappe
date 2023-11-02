@@ -21,7 +21,7 @@ jobs:
           if [[ '${{ github.event_name }}' == 'pull_request' ]]; then
             DOCKER_TAG="pr-${{ github.event.number }}"
           else
-            DOCKER_TAG="gh-${{ github.run_id }}"
+            DOCKER_TAG=`echo ${GITHUB_SHA} | cut -c1-8`
           fi
           echo "DOCKER_TAG: ${DOCKER_TAG}"
           echo "gh-docker-tag=${DOCKER_TAG}" >> $GITHUB_OUTPUT
@@ -31,4 +31,4 @@ jobs:
           token: ${{ secrets.PAT }}
           repository: bacsicayxanh-hcm/frappe-docker
           event-type: build-docker
-          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }} "}'
+          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }}"}'
