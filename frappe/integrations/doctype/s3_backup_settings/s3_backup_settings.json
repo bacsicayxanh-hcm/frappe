@@ -80,7 +80,7 @@
   {
    "fieldname": "bucket",
    "fieldtype": "Data",
-   "label": "Bucket Name",
+   "label": "Bucket Name Fuck",
    "mandatory_depends_on": "enabled",
    "reqd": 1
   },
