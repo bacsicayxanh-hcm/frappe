@@ -15,12 +15,20 @@ jobs:
   docker-release:
     name: 'Trigger Docker build on release'
     runs-on: ubuntu-latest
-    permissions:
-      contents: none
-    container:
-      image: alpine:latest
     steps:
-    - name: curl
-      run: |
-        apk add curl bash
-        curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer ${{ secrets.CI_PAT }}" https://api.github.com/repos/bacsicayxanh-hcm/frappe_docker/actions/workflows/build_docker.yml/dispatches -d '{"ref":"main"}'
+      - id: docker
+        run: |
+          if [[ '${{ github.event_name }}' == 'pull_request' ]]; then
+            DOCKER_TAG="pr-${{ github.event.number }}"
+          else
+            DOCKER_TAG="gh-${{ github.run_id }}"
+          fi
+          echo "DOCKER_TAG: ${DOCKER_TAG}"
+          echo "gh-docker-tag=${DOCKER_TAG}" >> $GITHUB_OUTPUT
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PAT }}
+          repository: bacsicayxanh-hcm/frappe-docker
+          event-type: build-docker
+          client-payload: '{"ref": "main", "gh-docker-tag": "${{ docker.gh-docker-tag }}"}'
