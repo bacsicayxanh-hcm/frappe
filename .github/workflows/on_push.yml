@@ -27,6 +27,6 @@ jobs:
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PAT }}
-          repository: bacsicayxanh-hcm/frappe-docker
+          repository: bacsicayxanh-hcm/frappe_docker
           event-type: build-docker
           client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }}"}'
