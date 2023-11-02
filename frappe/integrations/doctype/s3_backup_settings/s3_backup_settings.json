@@ -85,8 +85,8 @@
    "reqd": 1
   },
   {
-   "fieldname": "bucket",
-   "fieldtype": "Region",
+   "fieldname": "region",
+   "fieldtype": "Data",
    "label": "Region",
    "mandatory_depends_on": "enabled",
    "reqd": 1
