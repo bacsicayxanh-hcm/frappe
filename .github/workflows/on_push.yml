@@ -14,7 +14,7 @@ jobs:
     name: 'Trigger Docker build on release'
     runs-on: ubuntu-latest
     steps:
-      - id: docker
+      - id: variable
         run: |
           if [[ '${{ github.event_name }}' == 'pull_request' ]]; then
             DOCKER_TAG="pr-${{ github.event.number }}"
@@ -23,10 +23,11 @@ jobs:
           fi
           echo "DOCKER_TAG: ${DOCKER_TAG}"
           echo "gh-docker-tag=${DOCKER_TAG}" >> $GITHUB_OUTPUT
+          echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       - name: Repository Dispatch
         uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PAT }}
           repository: bacsicayxanh-hcm/frappe_docker
           event-type: build-docker
-          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.docker.outputs.gh-docker-tag }}", "frappe-version": "version-14-hotfix"}"}'
+          client-payload: '{"ref": "main", "gh-docker-tag": "${{ steps.variable.outputs.gh-docker-tag }}", "frappe-version": "${{ steps.variable.outputs.branch }}"}'
