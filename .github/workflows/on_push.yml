@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - version-14-hotfix
+  workflow_dispatch:
 
 permissions:
   contents: read
-
-env:
-  GITHUB_TOKEN: ${{ github.token }}
 
 jobs:
   docker-release:
