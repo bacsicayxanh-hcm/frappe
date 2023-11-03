@@ -80,14 +80,15 @@
   {
    "fieldname": "bucket",
    "fieldtype": "Data",
-   "label": "Bucket Name Fuck",
+   "label": "Bucket Name",
    "mandatory_depends_on": "enabled",
    "reqd": 1
   },
   {
-   "fieldname": "region",
+   "fieldname": "region_name",
    "fieldtype": "Data",
-   "label": "Region",
+   "label": "Region Name",
+   "description": "In case of using S3 compatible store where `region_name` parameter is required",
    "mandatory_depends_on": "enabled",
    "reqd": 1
   },

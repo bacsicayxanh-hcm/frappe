@@ -33,7 +33,7 @@ class S3BackupSettings(Document):
 			aws_access_key_id=self.access_key_id,
 			aws_secret_access_key=self.get_password("secret_access_key"),
 			endpoint_url=self.endpoint_url,
-			region=self.region or "",
+			region_name=self.region_name or "",
 		)
 
 		try:
@@ -121,7 +121,7 @@ def backup_to_s3():
 		aws_access_key_id=doc.access_key_id,
 		aws_secret_access_key=doc.get_password("secret_access_key"),
 		endpoint_url=doc.endpoint_url or "https://s3.amazonaws.com",
-		region=doc.region or "",
+		region_name=doc.region_name or "",
 	)
 
 	if frappe.flags.create_new_backup:
