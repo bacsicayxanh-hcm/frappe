@@ -16,7 +16,7 @@
   "send_email_for_successful_backup",
   "s3_bucket_details_section",
   "bucket",
-  "region",
+  "region_name",
   "endpoint_url",
   "column_break_13",
   "backup_details_section",
