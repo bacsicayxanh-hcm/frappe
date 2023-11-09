@@ -32,6 +32,7 @@ class S3BackupSettings(Document):
 		access_key_id: DF.Data
 		backup_files: DF.Check
 		bucket: DF.Data
+		region_name: DF.Data
 		enabled: DF.Check
 		endpoint_url: DF.Data | None
 		frequency: DF.Literal["Daily", "Weekly", "Monthly", "None"]
@@ -51,6 +52,7 @@ class S3BackupSettings(Document):
 			aws_access_key_id=self.access_key_id,
 			aws_secret_access_key=self.get_password("secret_access_key"),
 			endpoint_url=self.endpoint_url,
+			region_name=self.region_name
 		)
 
 		try:
@@ -69,6 +71,9 @@ class S3BackupSettings(Document):
 
 			frappe.throw(msg)
 
+	def onload(self):
+		frappe.logger().info("i don't know")
+		pass
 
 @frappe.whitelist()
 def take_backup():
@@ -92,6 +97,8 @@ def take_backups_weekly():
 def take_backups_monthly():
 	take_backups_if("Monthly")
 
+def take_backups_every_4_hours():
+	take_backups_if("Every 4 hours")
 
 def take_backups_if(freq):
 	if cint(frappe.db.get_single_value("S3 Backup Settings", "enabled")):
@@ -138,6 +145,7 @@ def backup_to_s3():
 		aws_access_key_id=doc.access_key_id,
 		aws_secret_access_key=doc.get_password("secret_access_key"),
 		endpoint_url=doc.endpoint_url or "https://s3.amazonaws.com",
+		region_name=doc.region_name or "",
 	)
 
 	if frappe.flags.create_new_backup:
