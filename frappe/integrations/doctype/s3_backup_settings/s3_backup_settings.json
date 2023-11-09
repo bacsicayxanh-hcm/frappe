@@ -16,6 +16,7 @@
   "send_email_for_successful_backup",
   "s3_bucket_details_section",
   "bucket",
+  "region_name",
   "endpoint_url",
   "column_break_13",
   "backup_details_section",
@@ -80,6 +81,14 @@
    "fieldname": "bucket",
    "fieldtype": "Data",
    "label": "Bucket Name",
+   "mandatory_depends_on": "enabled",
+   "reqd": 1
+  },
+   {
+   "fieldname": "region_name",
+   "fieldtype": "Data",
+   "description": "In case of using S3 compatible store when region_name parameter is required",
+   "label": "Region Name",
    "mandatory_depends_on": "enabled",
    "reqd": 1
   },
