@@ -51,7 +51,7 @@
    "in_list_view": 1,
    "label": "Backup Frequency",
    "mandatory_depends_on": "enabled",
-   "options": "Daily\nWeekly\nMonthly\nNone",
+   "options": "Every 4 hours\nDaily\nWeekly\nMonthly\nNone",
    "reqd": 1
   },
   {

@@ -71,6 +71,9 @@ class S3BackupSettings(Document):
 
 			frappe.throw(msg)
 
+	def onload(self):
+		frappe.logger().info("i don't know")
+		pass
 
 @frappe.whitelist()
 def take_backup():
@@ -94,6 +97,8 @@ def take_backups_weekly():
 def take_backups_monthly():
 	take_backups_if("Monthly")
 
+def take_backups_every_4_hours():
+	take_backups_if("Every 4 hours")
 
 def take_backups_if(freq):
 	if cint(frappe.db.get_single_value("S3 Backup Settings", "enabled")):
