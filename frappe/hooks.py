@@ -216,6 +216,10 @@ scheduler_events = {
 		"45 0 * * *": [
 			"frappe.core.doctype.log_settings.log_settings.run_log_clean_up",
 		],
+		# Add support for backup every 4 hours
+		"0 */4 * * *": [
+			"frappe.integrations.doctype.s3_backup_settings.s3_backup_settings.take_backups_every_4_hours",
+		],
 	},
 	"all": [
 		"frappe.email.queue.flush",
